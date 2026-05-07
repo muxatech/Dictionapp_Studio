@@ -66,16 +66,26 @@ export default function Dashboard() {
   useEffect(() => {
     if (!user) return
 
-    // Load academy name from localStorage first, then user_metadata as fallback
-    const savedName = localStorage.getItem('academyName')
-    setAcademyName(savedName || user.user_metadata?.academy_name || 'Mi Academia')
-
-    // Reload academy name when window focuses (coming back from Settings)
-    const handleFocus = () => {
-      const localName = localStorage.getItem('academyName')
-      const metadataName = user.user_metadata?.academy_name
-      setAcademyName(localName || metadataName || 'Mi Academia')
+    // Always use user_metadata as source of truth
+    const metadataName = user.user_metadata?.academy_name || ''
+    setAcademyName(metadataName || 'Mi Academia')
+    // Keep localStorage in sync
+    if (metadataName) {
+      localStorage.setItem('academyName', metadataName)
+    } else {
+      localStorage.removeItem('academyName')
     }
+
+       // Reload academy name when window focuses (always from user_metadata)
+       const handleFocus = () => {
+         const metadataName = user.user_metadata?.academy_name || ''
+         setAcademyName(metadataName || 'Mi Academia')
+         if (metadataName) {
+           localStorage.setItem('academyName', metadataName)
+         } else {
+           localStorage.removeItem('academyName')
+         }
+       }
     window.addEventListener('focus', handleFocus)
 
     const fetchStats = async () => {

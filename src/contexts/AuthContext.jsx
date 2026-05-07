@@ -48,7 +48,10 @@ export const AuthProvider = ({ children }) => {
     if (error) throw error
   }
 
-  const logout = async () => await supabase.auth.signOut()
+  const logout = async () => {
+    localStorage.removeItem('academyName')
+    await supabase.auth.signOut()
+  }
 
   const toggleDarkMode = () => setDarkMode(!darkMode)
 
