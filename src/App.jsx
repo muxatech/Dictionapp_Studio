@@ -38,7 +38,10 @@ function ProtectedRoute({ children }) {
   const [checking, setChecking] = useState(true)
 
   useEffect(() => {
-    if (!user) return
+    if (!user) {
+      setChecking(false)
+      return
+    }
     
     const checkSubscription = async () => {
       try {
