@@ -4,7 +4,7 @@ import { supabase } from '../utils/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import { useToast } from '../contexts/ToastContext'
 import { Spinner } from '../components/Spinner'
-import { Sun, Moon, RefreshCw } from 'lucide-react'
+import { Sun, Moon, RefreshCw, User, LogOut } from 'lucide-react'
 
 const PRICE_ID = 'price_1TTc8aB7Uuo9yIPdnUZ7bWRg'
 
@@ -227,7 +227,10 @@ export default function Settings() {
           </div>
 
           <div className="pt-8 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+              <User size={20} /> Cuenta
+            </h3>
+            <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
               <span className="text-sm text-gray-600 dark:text-gray-400">
                 {user?.email}
               </span>
@@ -238,9 +241,9 @@ export default function Settings() {
                     navigate('/login')
                   }
                 }}
-                className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm font-medium"
+                className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm font-medium flex items-center gap-2"
               >
-                Cerrar sesión
+                <LogOut size={16} /> Cerrar sesión
               </button>
             </div>
           </div>
