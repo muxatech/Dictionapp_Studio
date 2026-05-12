@@ -62,7 +62,7 @@ export default function Login() {
         })
         if (error) throw error
         if (data.user && !data.session) {
-          setSuccess('Cuenta creada. Te hemos enviado un email a ' + email + '. Por favor confirma tu cuenta para continuar.')
+          setSuccess('Te hemos enviado un email de confirmación a ' + email + '. Revisa tu bandeja de entrada.')
           setIsSignUp(false)
           setPassword('')
           setConfirmPassword('')
@@ -80,7 +80,11 @@ export default function Login() {
         navigate('/dashboard')
       }
     } catch (err) {
-      setError(err.message || 'Error')
+      if (err.message?.includes('User already registered')) {
+        setError('Ya existe una cuenta con este email. Prueba a iniciar sesión o recupera tu contraseña.')
+      } else {
+        setError(err.message || 'Error')
+      }
     } finally {
       setLoading(false)
     }
