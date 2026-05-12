@@ -227,20 +227,22 @@ export default function Settings() {
           </div>
 
           <div className="pt-8 border-t border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              Zona de Peligro
-            </h3>
-            <button
-              onClick={async () => {
-                if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-                  await logout()
-                  navigate('/login')
-                }
-              }}
-              className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm font-medium"
-            >
-              Cerrar sesión
-            </button>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600 dark:text-gray-400">
+                {user?.email}
+              </span>
+              <button
+                onClick={async () => {
+                  if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                    await logout()
+                    navigate('/login')
+                  }
+                }}
+                className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm font-medium"
+              >
+                Cerrar sesión
+              </button>
+            </div>
           </div>
         </div>
       </div>
